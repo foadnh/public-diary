@@ -1,0 +1,35 @@
+{
+	"core": {
+		"css": {
+			"public/build/css/dist.min.css": [
+				"public/system/lib/medium-editor/dist/css/themes/bootstrap.css",
+				"public/system/lib/medium-editor/dist/css/medium-editor.css",
+				"public/system/lib/ng-tags-input/ng-tags-input.css",
+				"public/**/assets/css/*.css"
+			]
+		},
+		"js": {
+			"public/build/js/dist.min.js": [
+				"public/system/lib/ng-file-upload-shim/angular-file-upload-html5-shim.js",
+				"public/system/lib/angular/angular.js",
+				"public/system/lib/angular-mocks/angular-mocks.js",
+				"public/system/lib/angular-cookies/angular-cookies.js",
+				"public/system/lib/angular-resource/angular-resource.js",
+				"public/system/lib/angular-ui-router/release/angular-ui-router.js",
+				"public/system/lib/jquery/dist/jquery.min.js",
+				"public/system/lib/angular-bootstrap/ui-bootstrap.js",
+				"public/system/lib/angular-bootstrap/ui-bootstrap-tpls.js",
+				"public/system/lib/ng-file-upload/angular-file-upload.js",
+				"public/system/lib/angular-sanitize/angular-sanitize.js",
+				"public/system/lib/angular-medium-editor/dist/angular-medium-editor.js",
+				"public/system/lib/medium-editor/dist/js/medium-editor.js",
+				"public/system/lib/lodash/dist/lodash.underscore.js",
+				"public/system/lib/angular-google-maps/dist/angular-google-maps.js",
+				"public/system/lib/ng-tags-input/ng-tags-input.js",
+				"public/init.js",
+				"public/*/*.js",
+				"public/*/{controllers,filters,routes,services}/*.js"
+			]
+		}
+	}
+}

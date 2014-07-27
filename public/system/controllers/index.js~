@@ -1,0 +1,212 @@
+'use strict';
+/* exported onGoogleReady */
+
+angular.module('mean.system').controller('IndexCtrl', ['$scope', 'Global', 'Diary', '$http', '$modal', '$upload'
+	function($scope, Global, Diary, $http, $modal, $upload) {
+
+		$scope.userAccess = Global.authenticated ? true : false;
+
+
+		$scope.location = {
+			latitude: 0,
+			longitude: 0
+		};
+		var ipLoc = function() {
+			$http.get('http://ipinfo.io/json').success(function(result) {
+				$scope.location.latitude = result.loc.split(',')[0];
+				$scope.location.longitude = result.loc.split(',')[1];
+				$scope.map.zoom = 6;
+			});
+		};
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(function(position) {
+				$scope.location.latitude = position.coords.latitude;
+				$scope.location.longitude = position.coords.longitude;
+				$scope.map.zoom = 15;
+			}, function(err) {
+				console.log(err);
+				ipLoc();
+			});
+		} else {
+			ipLoc();
+		}
+
+		$scope.meta = {
+			pageSize: 20,
+			page: 1
+		};
+
+		var getDiaries = function() {
+			Diary.getBox($scope.map.box, $scope.meta.pageSize, $scope.meta.page, function(result) {
+				$scope.meta.wholeSize = result.wholeSize;
+				var diaries = result.diaries;
+				for (var i = 0, j = diaries.length; i < j; i++) {
+					diaries[i].mloc = {};
+					diaries[i].mloc.latitude = diaries[i].loc[0];
+					diaries[i].mloc.longitude = diaries[i].loc[1];
+				}
+				$scope.diaries = diaries;
+			});
+		};
+
+		$scope.$watch('meta.page', function(newVal) {
+			if($scope.map.box)
+				getDiaries();
+		});
+
+		$scope.map = {
+			zoom: 1,
+
+			events: {
+				'click': function(mapModel, eventName, originalEventArgs) {
+					var e = originalEventArgs[0];
+					$scope.lat = e.latLng.lat();
+					$scope.lng = e.latLng.lng();
+
+					var marker = {
+						latitude: e.latLng.lat(),
+						longitude: e.latLng.lng()
+					};
+					$scope.map.marker = marker;
+
+					$scope.$apply();
+				},
+				'idle': function(mapModel, eventName, originalEventArgs) {
+					var sw = mapModel.getBounds().getSouthWest(),
+						ne = mapModel.getBounds().getNorthEast();
+					$scope.map.box = {
+						x1: sw.lat(),
+						y1: sw.lng(),
+						x2: ne.lat(),
+						y2: ne.lng()
+					};
+					$scope.meta.page = 1;
+					getDiaries();
+				}
+			},
+
+			marker: {
+				latitude: undefined,
+				longitude: undefined
+			},
+
+			window: {
+				options: {
+					boxClass: 'custom-info-window'
+				},
+				show: true
+			}
+
+		};
+
+		$scope.viewDiary = function(index) {
+
+
+
+
+			var modalInstance = $modal.open({
+				templateUrl: '/public/system/views/view-diary.html',
+				scope: $scope,
+				controller: 'viewDiaryCtrl',
+				resolve: { // What is this exactly?
+					items: function() {
+						return $scope.diaries;
+					}
+				}
+			});
+
+			modalInstance.result.then(function() {}, function() {
+				console.log('Modal dismissed at: ' + new Date());
+			});
+		};
+
+
+
+
+		$scope.viewCreate = function() {
+
+			$scope.diary = {};
+
+			var viewCreateCtrl = function($scope, $modalInstance, items) {
+
+				$scope.close = function() {
+					$modalInstance.dismiss('close');
+				};
+				$scope.create = function() {
+					var tagsObj = $scope.diary.tagsObj,
+						tags = [];
+					for (var i = 0, j = tagsObj.length; i < j; i++) {
+						tags.push(tagsObj[i].text);
+					}
+					$scope.diary.tags = tags;
+					$scope.diary.loc = [$scope.lat, $scope.lng];
+					Diary.save($scope.diary, function(result) {
+						result.mloc = {
+							latitude: result.loc[0],
+							longitude: result.loc[1]
+						};
+						$scope.diaries.push(result);
+						$scope.map.marker = {
+							latitude: null,
+							longitude: null
+						};
+						$scope.lat = null;
+						$scope.lng = null;
+						$scope.diary = {};
+						$modalInstance.dismiss('create');
+						$scope.viewDiary($scope.diaries.length - 1);
+					});
+				};
+			};
+
+			var modalInstance = $modal.open({
+				templateUrl: '/public/system/views/view-create.html',
+				scope: $scope,
+				controller: viewCreateCtrl,
+				resolve: { // What is this exactly?
+					items: function() {
+						return $scope.diaries;
+					}
+				}
+			});
+
+			modalInstance.result.then(function() {}, function() {
+				console.log('Modal dismissed at: ' + new Date());
+			});
+		};
+
+		$scope.cancel = function() {
+			delete $scope.diary;
+			delete $scope.editMode;
+		};
+
+		$scope.onFileSelect = function(image) {
+			if (angular.isArray(image)) {
+				image = image[0];
+			}
+
+			if (image.type !== 'image/png' && image.type !== 'image/jpeg') {
+				alert('Only PNG and JPEG are accepted.');
+				return;
+			}
+
+			$scope.uploadInProgress = true;
+			$scope.uploadProgress = 0;
+
+			$scope.upload = $upload.upload({
+				url: '/diary/image',
+				method: 'POST',
+				file: image
+			}).progress(function(event) {
+				$scope.uploadProgress = Math.floor(event.loaded / event.total);
+				$scope.$apply();
+			}).success(function(data, status, headers, config) {
+				$scope.uploadInProgress = false;
+				$scope.diary.image = JSON.parse(data);
+			}).error(function(err) {
+				$scope.uploadInProgress = false;
+				console.log('Error uploading file: ' + err.message || err);
+			});
+		};
+	}
+]);

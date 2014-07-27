@@ -1,0 +1,11 @@
+<section data-ng-controller="SearchCtrl">
+	<table>
+		<tr data-ng-repeat="diary in diaries">
+			<td><button data-ng-click="viewDiary($index)">View</button></td>
+			<td>{{diary.vote}}</td>
+			<td>{{diary.title}}</td>
+			<td data-ng-bind-html="diary.text"></td>
+		</tr>
+	</table>
+	<pagination total-items="meta.wholeSize" items-per-page="meta.pageSize" data-ng-model="meta.page" max-size="10"></pagination>
+</section>

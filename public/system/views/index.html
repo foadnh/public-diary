@@ -1,0 +1,32 @@
+<section data-ng-controller="IndexCtrl">
+	<google-map center="location" zoom="map.zoom" events="map.events">
+		<marker coords="map.marker">
+			<window options="map.window.options">
+				<div>
+					<button data-ng-click="$parent.viewCreate()" data-ng-show="$parent.userAccess">Create new diary</button>
+					<button data-ng-hide="$parent.userAccess" data-ng-disabled="true">Log in first</button>
+				</div>
+			</window>
+		</marker>
+		<marker ng-repeat="diary in diaries" coords="diary.mloc" events="map.markerEvents">
+			<window options="map.window.options">
+				<div>
+					Title: {{ diary.title }}<br>
+					<div data-ng-if="$parent.diary.showUser">User: {{ diary.username }}<br></div>
+					<button data-ng-click="$parent.viewDiary($parent.$index)">View</button>
+				</div>
+			</window>
+		</marker>
+	</google-map>
+	<pagination total-items="meta.wholeSize" items-per-page="meta.pageSize" data-ng-model="meta.page" max-size="10"></pagination>
+	<select data-ng-model="sortVal" data-ng-change="sort()">
+		<optgroup label="Created date">
+			<option value='{"sort":"createdDate","order":-1}'>Descending</option>
+			<option value='{"sort":"createdDate","order":1}'>Ascending</option>
+		</optgroup>
+		<optgroup label="Vote">
+			<option value='{"sort":"vote","order":-1}'>Descending</option>
+			<option value='{"sort":"vote","order":1}'>Ascending</option>
+		</optgroup>
+	</select>
+</section>

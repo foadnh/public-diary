@@ -1,0 +1,179 @@
+<section data-ng-controller="AdminDiaryCtrl">
+	<input type="text" data-ng-model="diaryId">
+	<button data-ng-click="getDiary()">Get diary</button>
+	<form data-ng-submit="save()" data-ng-if="diary">
+		<table data-ng-if="diary">
+			<tr>
+				<td>__v</td>
+				<td>{{diary.__v}}</td>
+			</tr>
+			<tr>
+				<td>_id</td>
+				<td>{{diary._id}}</td>
+			</tr>
+			<tr>
+				<td>createDate</td>
+				<td>{{diary.createdDate}}</td>
+			</tr>
+			<tr>
+				<td>loc</td>
+				<td>
+					<table>
+						<tr>
+							<td>latitude: {{diary.loc[0]}}</td>
+							<td>
+								<input type="number" step="any" data-ng-model="editDiary.loc[0]"></input>
+							</td>
+						<tr>
+						<tr>
+							<td>longitude: {{diary.loc[1]}}</td>
+							<td>
+								<input type="number" step="any" data-ng-model="editDiary.loc[1]"></input>
+							</td>
+						<tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>title</td>
+				<td>
+					<table>
+						<tr>
+							<td>{{diary.title}}</td>
+							<td>
+								<input type="text" data-ng-model="editDiary.title"></input>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>text</td>
+				<td>
+					<table>
+						<tr>
+							<td>{{diary.text}}</td>
+							<td>
+								<input type="text" data-ng-model="editDiary.text"></input>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>modifies</td>
+				<td>
+					<table>
+						<tr data-ng-repeat="modify in diary.modifies">
+							<td>{{ $index }}</td>
+							<td>
+								<table>
+									<tr>
+										<td>_id</td>
+										<td>{{modify._id}}</td>
+									</tr>
+									<tr>
+										<td>modifiedDate</td>
+										<td>{{modify.modifiedDate}}</td>
+									</tr>
+									<tr>
+										<td>title</td>
+										<td>{{modify.title}}</td>
+										<td>
+											<input type="text" data-ng-model="editDiary.modifies[$index].title"></input>
+										</td>
+									</tr>
+									<tr>
+										<td>text</td>
+										<td>{{modify.text}}</td>
+										<td>
+											<input type="text" data-ng-model="editDiary.modifies[$index].text"></input>
+										</td>
+									</tr>
+								</table>
+							</td>
+						<tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>lastModifiedDate</td>
+				<td>{{diary.lastModifiedDate}}</td>
+			</tr>
+			<tr>
+				<td>showUser</td>
+				<td>
+					<table>
+						<tr>
+							<td>{{diary.showUser}}</td>
+							<td>
+								<input type="checkbox" data-ng-model="editDiary.showUser"></input>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>user</td>
+				<td>{{diary.user}}</td>
+			</tr>
+			<tr>
+				<td>username</td>
+				<td>{{diary.username}}</td>
+			</tr>
+			<tr>
+				<td>tags</td>
+				<td>
+					<table>
+						<tr data-ng-repeat="tag in diary.tags">
+							<td>{{ $index }}</td>
+							<td>{{tag}}</td>
+							<td>
+								<input type="text" data-ng-model="editDiary.tags[$index]"></input>
+							</td>
+						<tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>vote</td>
+				<td>
+					<table>
+						<tr>
+							<td>{{diary.vote}}</td>
+							<td>
+								<input type="number" data-ng-model="editDiary.vote"></input>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>votes</td>
+				<td>
+					<table>
+						<tr data-ng-repeat="vote in votes">
+							<td>vote</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>image</td>
+				<td>
+					<table>
+						<tr>
+							<td>{{diary.image}}</td>
+							<td>
+								<input type="checkbox" name="removeImage" data-ng-model="editDiary.removeImage">
+								<label for="removeImage">Remove image</label>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+		<input type="submit" value="Save"></input>
+		<button data-ng-click="delete()">Delete</button>
+	</form>
+</section>

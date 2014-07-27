@@ -1,0 +1,17 @@
+<div class="modal-header">
+	<button class="btn btn-warning" data-ng-click="close()">Close</button>
+</div>
+<div class="modal-body">
+	<ol>
+		<li data-ng-repeat="modify in diaries[diaryIndex].modifies" data-ng-if="diaries">
+			{{ modify.title }}
+			<div data-ng-bind-html="modify.text"></div>
+			{{ modify.modifiedDate | date: 'medium' }}
+		</li>
+		<li data-ng-repeat="modify in diary.modifies" data-ng-if="!diaries">
+			{{ modify.title }}
+			<div data-ng-bind-html="modify.text"></div>
+			{{ modify.modifiedDate | date: 'medium' }}
+		</li>
+	</ol>
+</div>
