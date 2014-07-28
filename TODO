@@ -1,22 +1,18 @@
 ?* Make like, unline, toggleLike in /server/config/controllers/diaries.js to work with other users.
-* Check for unchanged edits in server side. [Don't know if it's good or not (performance).]
+?* Check for unchanged edits in server side. [Don't know if it's good or not (performance).]
 -> Add the following property to all next updates of ng-tags-input:
 setTagText = function(tag, text) {
     tag[options.displayProperty] = text.toLowerCase();
 };
--> Make tags <a> tag in ng-tags-input.js template to all next updates.
-# userAccess in index.js is not changing when logging in.
+-> Make tags <a ui-sref='tags({tag:getDisplayText(tag)})'> tag in ng-tags-input.js template to all next updates.
+# userAccess in index.js is not changing when logging in. [Don't know exactly when it happens and when it won't.]
 -> Install graphicsmagick on every new system.
-# Tags arent work when creating new diary.
 * Delete temporary image on cancel.
 * Find a solution for deleting out of date temporary images.
 * Move to MEAN 0.4.x
-# Should I add $scope.$apply(); to ipLoc() ro not?!
-# When going to tags page from diary view, madel don't close.
+# Should I add $scope.$apply(); to ipLoc() ro not?! [It looks like not neccessery]
 # Lots of things went wrong in search method. Weight, pagging, ...
-* Make RTL for medium-editor.
 # Placeholder problem with medium-editor when there is text.
-* Change default sorting mode.
 # Make that RTL works without need to edit anything.
 * breakLine filter no longer needed. Ready to delete.
 * I should find a better way to prevent people to go to admin pages.

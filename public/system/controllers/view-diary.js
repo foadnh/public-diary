@@ -115,6 +115,10 @@ angular.module('mean.system').controller(
 				delete $scope.editMode;
 			};
 
+			$scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
+				$scope.close();
+			});
+
 			$scope.mediumOptions = {
 				placeholder: 'Diary text',
 				buttons: ['bold', 'italic', 'underline', 'strikethrough', 'quote', 'direction'],

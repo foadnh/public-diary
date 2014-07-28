@@ -1,7 +1,7 @@
 <div class="modal-header">
 	<h3 class="modal-title" data-ng-hide="editMode">{{ diaries[diaryIndex].title }}</h3>
 	<input data-ng-model="diary.title" data-ng-show="editMode" data-ng-if="editAccess"></input>
-	<a data-ng-href="#!/diary/{{diaries[diaryIndex]._id}}">
+	<a ui-sref='diary({diaryId:diaries[diaryIndex]._id})'>
 		{{ diaries[diaryIndex].createdDate | date: 'medium' }}
 	</a>
 	<a href="#" data-ng-if="diaries[diaryIndex].username">{{ diaries[diaryIndex].username }}</a>
@@ -17,7 +17,7 @@
 <div class="modal-body">
 	<p ng-bind-html="diaries[diaryIndex].text" data-ng-hide="editMode"></p>
 	<div data-ng-model="diary.text" medium-editor options="{{mediumOptions}}" bind-options="mediumBindOptions" data-ng-show="editMode"></div>
-	<img data-ng-src="public/system/assets/img/diaries/{{diaries[diaryIndex].image}}" data-ng-if="diaries[diaryIndex].image">
+	<img data-ng-src="public/system/assets/img/diaries/{{diaries[diaryIndex].image}}" data-ng-if="diaries[diaryIndex].image"></img>
 </div>
 <div class="modal-footer">
 	<span>{{ diaries[diaryIndex].vote }}</span>

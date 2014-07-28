@@ -5,6 +5,19 @@ angular.module('mean.system').controller('IdCtrl', ['$scope', 'Global', 'Diary',
 
 		$scope.userAccess = Global.authenticated ? true : false;
 
+		$scope.map = {
+			zoom: 15,
+			center: {
+				latitude: 0,
+				longitude: 0
+			},
+			marker: {
+				latitude: undefined,
+				longitude: undefined
+			}
+
+		};
+
 		Diary.getId($stateParams.diaryId,
 			function(err) {
 				console.log(err);
@@ -31,6 +44,13 @@ angular.module('mean.system').controller('IdCtrl', ['$scope', 'Global', 'Diary',
 					$scope.liked = false;
 				else
 					$scope.liked = true;
+
+				$scope.map.center = {
+					latitude: result.loc[0],
+					longitude: result.loc[1]
+				};
+				$scope.map.marker = $scope.map.center;
+				$scope.$apply();
 			}
 		);
 

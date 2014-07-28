@@ -15,7 +15,13 @@
 	<div class="modal-body">
 		<p data-ng-bind-html="diary.text" data-ng-hide="editMode"></p>
 		<div data-ng-model="editDiary.text" medium-editor options="{{mediumOptions}}" bind-options="mediumBindOptions" data-ng-show="editMode"></div>
-		<img data-ng-src="public/system/assets/img/diaries/{{diary.image}}" data-ng-if="diary.image">
+		<img data-ng-src="public/system/assets/img/diaries/{{diary.image}}" data-ng-if="diary.image"></img>
+
+		<google-map center="map.center" zoom="map.zoom">
+			<marker coords="map.marker">
+			</marker>
+		</google-map>
+
 	</div>
 	<div class="modal-footer">
 		<span>{{ diary.vote }}</span>
