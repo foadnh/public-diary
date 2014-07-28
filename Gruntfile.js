@@ -14,6 +14,7 @@ module.exports = function(grunt) {
 
 	// Project Configuration
 	grunt.initConfig({
+		hostname: '0.0.0.0',
 		pkg: grunt.file.readJSON('package.json'),
 		assets: grunt.file.readJSON('server/config/assets.json'),
 		clean: ['public/build'],
@@ -106,7 +107,7 @@ module.exports = function(grunt) {
 			unit: {
 				configFile: 'test/karma/karma.conf.js'
 			}
-		}
+		},
 	});
 
 	//Load NPM tasks
