@@ -17,3 +17,4 @@ setTagText = function(tag, text) {
 * breakLine filter no longer needed. Ready to delete.
 * I should find a better way to prevent people to go to admin pages.
 # Use winston-irc.
+# Some badly works need to done on pagination.

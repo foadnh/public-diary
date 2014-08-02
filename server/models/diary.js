@@ -74,6 +74,7 @@ var DiarySchema = new Schema({
 	},
 	vote: {
 		type: Number,
+		index: true,
 		default: 0
 	},
 	votes: {

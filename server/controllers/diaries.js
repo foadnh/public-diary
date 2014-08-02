@@ -37,7 +37,8 @@ var log = new(winston.Logger)({
 var tmpImageFolder = 'public/system/assets/tmp/',
 	imageFolder = 'public/system/assets/img/diaries/',
 	defaultQuerySize = 20,
-	maxQuerySize = 100;
+	maxQuerySize = 100,
+	countLimit = 300;
 
 /*
  * Save diary
@@ -150,7 +151,7 @@ exports.getNear = function(req, res) {
 				if (err) {
 					return res.status(400).send('No diary found.');
 				} else {
-					Diary.count(query, function(err, count) {
+					Diary.find().limit(countLimit).count(query, function(err, count) {
 						if (err) {
 							log.error('getNear: Counting diaries failed.', {
 								err: err
@@ -220,7 +221,7 @@ exports.getBox = function(req, res) {
 				if (err) {
 					return res.status(400).send('No diary found.');
 				} else {
-					Diary.count(query, function(err, count) {
+					Diary.find().limit(countLimit).count(query, function(err, count) {
 						if (err) {
 							log.error('getBox: Counting diaries failed.', {
 								err: err
@@ -281,7 +282,7 @@ exports.getTag = function(req, res) {
 				if (err) {
 					return res.status(400).send('No diary found.');
 				} else {
-					Diary.count(query, function(err, count) {
+					Diary.find().limit(countLimit).count(query, function(err, count) {
 						log.error('getTag: Counting diaries failed.', {
 							err: err
 						});
