@@ -3,6 +3,7 @@
 		<h3 class="modal-title" data-ng-hide="editMode">{{ diary.title }}</h3>
 		<input data-ng-model="editDiary.title" data-ng-show="editMode" data-ng-if="editAccess"></input>
 		<span>{{ diary.createdDate | date: 'medium' }}</span>
+		<a ui-sref='user({user:diary.user})' data-ng-if="diary.username">{{ diary.username }}</a>
 		<a href="#" data-ng-click="viewModifiesList()" data-ng-if="diary.lastModifiedDate">edited</a>
 		<tags-input
 			data-ng-model="diary.tagsObj"
@@ -18,7 +19,7 @@
 		<img data-ng-src="public/system/assets/img/diaries/{{diary.image}}" data-ng-if="diary.image"></img>
 
 		<google-map center="map.center" zoom="map.zoom">
-			<marker coords="map.marker">
+			<marker coords="map.marker" idKey="-1">
 			</marker>
 		</google-map>
 

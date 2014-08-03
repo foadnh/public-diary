@@ -1,6 +1,6 @@
 <section data-ng-controller="IndexCtrl">
 	<google-map center="location" zoom="map.zoom" events="map.events">
-		<marker coords="map.marker">
+		<marker coords="map.marker" idKey="-1">
 			<window options="map.window.options">
 				<div>
 					<button data-ng-click="$parent.viewCreate()" data-ng-show="$parent.userAccess">Create new diary</button>
@@ -8,7 +8,7 @@
 				</div>
 			</window>
 		</marker>
-		<marker ng-repeat="diary in diaries" coords="diary.mloc" events="map.markerEvents">
+		<marker ng-repeat="diary in diaries" coords="diary.mloc" events="map.markerEvents" idKey="$index">
 			<window options="map.window.options">
 				<div>
 					Title: {{ diary.title }}<br>
