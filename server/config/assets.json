@@ -12,7 +12,6 @@
 			"public/build/js/dist.min.js": [
 				"public/system/lib/ng-file-upload-shim/angular-file-upload-html5-shim.js",
 				"public/system/lib/angular/angular.js",
-				"public/system/lib/angular-mocks/angular-mocks.js",
 				"public/system/lib/angular-cookies/angular-cookies.js",
 				"public/system/lib/angular-resource/angular-resource.js",
 				"public/system/lib/angular-ui-router/release/angular-ui-router.js",
