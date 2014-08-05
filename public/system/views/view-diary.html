@@ -6,18 +6,16 @@
 	</a>
 	<a ui-sref='user({user:diaries[diaryIndex].user})' data-ng-if="diaries[diaryIndex].username">{{ diaries[diaryIndex].username }}</a>
 	<a href="#" data-ng-click="viewModifiesList()" data-ng-if="diaries[diaryIndex].lastModifiedDate">edited</a>
-	<tags-input
-		data-ng-model="diaries[diaryIndex].tagsObj"
-		data-on-tag-added="editTags()"
-		data-on-tag-removed="editTags()"
-		data-min-length="2"
-		data-ng-if="editAccess"></tags-input>
+	<tags-input data-ng-model="diaries[diaryIndex].tagsObj" data-on-tag-added="editTags()"
+	data-on-tag-removed="editTags()" data-min-length="2" data-ng-if="editAccess"></tags-input>
 	<button data-ng-click="saveTags(diaryIndex)" data-ng-if="tagsChanged">Save</button>
 </div>
 <div class="modal-body">
 	<p ng-bind-html="diaries[diaryIndex].text" data-ng-hide="editMode"></p>
-	<div data-ng-model="diary.text" medium-editor options="{{mediumOptions}}" bind-options="mediumBindOptions" data-ng-show="editMode"></div>
-	<img data-ng-src="public/system/assets/img/diaries/{{diaries[diaryIndex].image}}" data-ng-if="diaries[diaryIndex].image"></img>
+	<div data-ng-model="diary.text" medium-editor options="{{mediumOptions}}" bind-options="mediumBindOptions"
+	data-ng-show="editMode"></div>
+	<img data-ng-src="public/system/assets/img/diaries/{{diaries[diaryIndex].image}}"
+	data-ng-if="diaries[diaryIndex].image"></img>
 </div>
 <div class="modal-footer">
 	<span>{{ diaries[diaryIndex].vote }}</span>

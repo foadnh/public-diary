@@ -1,14 +1,14 @@
 <div class="modal-header">
 	<input type="text" data-ng-model="diary.title" placeholder="Title"></input>
-	<input type="checkbox" data-ng-model="diary.showUser" name="showUser"> 
-	<label for="showUser">Show username to public<label>
-	<tags-input
-		data-ng-model="diary.tagsObj"
-		data-min-length="2"></tags-input>
+	<input type="checkbox" data-ng-model="diary.showUser" name="showUser">
+	<label for="showUser">Show username to public
+		<label>
+			<tags-input data-ng-model="diary.tagsObj" data-min-length="2"></tags-input>
 </div>
 <div class="modal-body">
 	<div data-ng-model="diary.text" medium-editor options="{{mediumOptions}}" bind-options="mediumBindOptions"></div>
-	Upload image <input type="file" data-ng-file-select="onFileSelect($files)" accept="image/png, image/jpeg">
+	Upload image
+	<input type="file" data-ng-file-select="onFileSelect($files)" accept="image/png, image/jpeg">
 	<span data-ng-if="uploadInProgress">Upload progress: {{ uploadProgress }}</span>
 	<img data-ng-src="{{diary.image}}" data-ng-if="diary.image">
 </div>
