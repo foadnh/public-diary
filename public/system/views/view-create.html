@@ -13,6 +13,6 @@
 	<img data-ng-src="{{diary.image}}" data-ng-if="diary.image">
 </div>
 <div class="modal-footer">
-	<button data-ng-click="create()">Create</button>
+	<button data-ng-click="create()" data-ng-disabled="uploadInProgress">Create</button>
 	<button class="btn btn-warning" data-ng-click="close()">Cancel</button>
 </div>

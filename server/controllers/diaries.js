@@ -347,7 +347,6 @@ exports.getUser = function(req, res) {
 		};
 		if (!(req.user && user === req.user._id))
 			query.showUser = true;
-		console.log(query);
 		Diary
 			.find(query)
 			.sort(sortObj)
@@ -653,6 +652,9 @@ exports.postImage = function(req, res) {
 	var extension = '.jpeg';
 	var form = new multiparty.Form();
 	form.parse(req, function(err, fields, files) {
+		if (fields.oldImage && fields.oldImage[0] !== 'undefined') {
+			fs.unlink(fields.oldImage[0]);
+		}
 		var file = files.file[0];
 		var contentType = file.headers['content-type'];
 		var tmpPath = file.path;

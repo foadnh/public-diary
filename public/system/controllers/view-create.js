@@ -52,6 +52,9 @@ angular.module('mean.system').controller(
 				$scope.uploadProgress = 0;
 
 				$scope.upload = $upload.upload({
+					data: {
+						oldImage: $scope.diary.image
+					},
 					url: '/diary/image',
 					method: 'POST',
 					file: image
