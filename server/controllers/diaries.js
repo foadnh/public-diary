@@ -360,10 +360,10 @@ exports.getUser = function(req, res) {
 					return res.status(400).send('Something went wrong in getting diaries.');
 				} else {
 					Diary.find().limit(countLimit).count(query, function(err, count) {
-						log.error('getUser: Counting diaries failed.', {
-							err: err
-						});
 						if (err) {
+							log.error('getUser: Counting diaries failed.', {
+								err: err
+							});
 							return res.status(400).sent('Counting diaries failed.');
 						}
 						var result = {
