@@ -5,11 +5,13 @@
 .idea/
 nbproject/
 node_modules/
-public/system/lib
+public/system/lib/
+public/system/assets/tmp/*
+public/system/assets/img/diaries/*
 mean.iml
 test/coverage/
 modules/public/
 modules/views/
 /public/build/
 /nbproject/private/
-log/
+log/*
