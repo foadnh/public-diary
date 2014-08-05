@@ -20,6 +20,9 @@ module.exports = function(app, passport) {
 	app.route('/diary/tag/:tag')
 		.get(diaries.getTag); // Get diaries by tag
 
+	app.route('/diary/user/:user')
+		.get(diaries.getUser); // Get diaries by user
+
 	app.route('/diary/search/:key')
 		.get(diaries.search); // Search diaries by text
 

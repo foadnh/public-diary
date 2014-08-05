@@ -59,6 +59,18 @@ angular.module('mean.system').factory('Diary', ['$resource', '$http',
 					});
 			},
 
+			getUser: function(user, pageSize, page, sort, callback) {
+				var skip = (page - 1) * pageSize;
+				return $http
+					.get(
+						'/diary/user/' + user +
+						'?skip=' + skip + '&size=' + pageSize + '&sort=' + sort.sort + '&order=' + sort.order)
+					.success(callback)
+					.error(function(err) {
+						console.log(err);
+					});
+			},
+
 			search: function(key, callback) {
 				return $http
 					.get('/diary/search/' + key)

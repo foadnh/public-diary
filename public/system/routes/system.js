@@ -23,9 +23,13 @@ angular.module('mean.system').config(['$stateProvider', '$urlRouterProvider',
 				url: '/view',
 				templateUrl: 'public/system/views/view.html'
 			})
-			.state('tags', {
+			.state('tag', {
 				url: '/tag/:tag',
 				templateUrl: 'public/system/views/tag.html'
+			})
+			.state('user', {
+				url: '/user/:user',
+				templateUrl: 'public/system/views/user.html'
 			})
 			.state('search', {
 				url: '/search/:key',

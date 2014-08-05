@@ -4,7 +4,7 @@
 	<a ui-sref='diary({diaryId:diaries[diaryIndex]._id})'>
 		{{ diaries[diaryIndex].createdDate | date: 'medium' }}
 	</a>
-	<a href="#" data-ng-if="diaries[diaryIndex].username">{{ diaries[diaryIndex].username }}</a>
+	<a ui-sref='user({user:diaries[diaryIndex].user})' data-ng-if="diaries[diaryIndex].username">{{ diaries[diaryIndex].username }}</a>
 	<a href="#" data-ng-click="viewModifiesList()" data-ng-if="diaries[diaryIndex].lastModifiedDate">edited</a>
 	<tags-input
 		data-ng-model="diaries[diaryIndex].tagsObj"

@@ -5,6 +5,7 @@
  */
 var mongoose = require('mongoose'),
 	Diary = mongoose.model('Diary');
+mongoose.set('debug', true);
 
 /*
  * Image dependencies
@@ -99,7 +100,10 @@ exports.getId = function(req, res) {
 			.findById(req.params.diaryId)
 			.exec(function(err, diary) {
 				if (err) {
-					return res.status(400).send('No diary with this id found.');
+					log.error('getId: Executing failed.', {
+						err: err
+					});
+					return res.status(400).send('Something went wrong in getting diary.');
 				} else {
 					if (diary === null)
 						return res.status(400).send('No diary with this id found.');
@@ -149,7 +153,10 @@ exports.getNear = function(req, res) {
 			.limit(size)
 			.exec(function(err, diaries) {
 				if (err) {
-					return res.status(400).send('No diary found.');
+					log.error('getNear: Executing failed.', {
+						err: err
+					});
+					return res.status(400).send('Something went wrong in getting diaries.');
 				} else {
 					Diary.find().limit(countLimit).count(query, function(err, count) {
 						if (err) {
@@ -219,7 +226,10 @@ exports.getBox = function(req, res) {
 			.limit(size)
 			.exec(function(err, diaries) {
 				if (err) {
-					return res.status(400).send('No diary found.');
+					log.error('getBox: Executing failed.', {
+						err: err
+					});
+					return res.status(400).send('Something went wrong in getting diaries.');
 				} else {
 					Diary.find().limit(countLimit).count(query, function(err, count) {
 						if (err) {
@@ -251,7 +261,6 @@ exports.getBox = function(req, res) {
 	}
 };
 
-
 /*
  * Get diaries by tag
  */
@@ -280,7 +289,10 @@ exports.getTag = function(req, res) {
 			.limit(size)
 			.exec(function(err, diaries) {
 				if (err) {
-					return res.status(400).send('No diary found.');
+					log.error('getTag: Executing failed.', {
+						err: err
+					});
+					return res.status(400).send('Something went wrong in getting diaries.');
 				} else {
 					Diary.find().limit(countLimit).count(query, function(err, count) {
 						log.error('getTag: Counting diaries failed.', {
@@ -309,6 +321,64 @@ exports.getTag = function(req, res) {
 			});
 	} else {
 		return res.status(400).send('No tag supplied.');
+	}
+};
+
+/*
+ * Get diaries by user
+ */
+exports.getUser = function(req, res) {
+	var user = req.params.user;
+
+	var skip = req.query.skip || 0;
+	var size = req.query.size || defaultQuerySize;
+	if (size > maxQuerySize)
+		size = maxQuerySize;
+	var sort = req.query.sort || 'createdDate';
+	var order = Number(req.query.order) || -1;
+	if (['createdDate', 'vote'].indexOf(sort) === -1 || [1, -1].indexOf(order) === -1)
+		return res.status(400).send('Sorting parameters are undefined.');
+	var sortObj = {};
+	sortObj[sort] = order;
+
+	if (user) {
+		var query = {
+			user: user
+		};
+		if (!(req.user && user === req.user._id))
+			query.showUser = true;
+		console.log(query);
+		Diary
+			.find(query)
+			.sort(sortObj)
+			.skip(skip)
+			.limit(size)
+			.exec(function(err, diaries) {
+				if (err) {
+					log.error('getUser: Executing failed.', {
+						err: err
+					});
+					return res.status(400).send('Something went wrong in getting diaries.');
+				} else {
+					Diary.find().limit(countLimit).count(query, function(err, count) {
+						log.error('getUser: Counting diaries failed.', {
+							err: err
+						});
+						if (err) {
+							return res.status(400).sent('Counting diaries failed.');
+						}
+						var result = {
+							diaries: diaries,
+							querySize: Number(size),
+							wholeSize: count,
+							skip: Number(skip)
+						};
+						return res.json(result);
+					});
+				}
+			});
+	} else {
+		return res.status(400).send('No user id supplied.');
 	}
 };
 
