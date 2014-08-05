@@ -42,7 +42,6 @@ var DiarySchema = new Schema({
 	},
 	loc: {
 		type: [Number],
-		index: '2dsphere',
 		required: true
 	},
 	modifies: {
@@ -66,7 +65,8 @@ var DiarySchema = new Schema({
 	user: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: User,
-		required: true
+		required: true,
+		index: true
 	},
 	username: {
 		type: String,
@@ -113,8 +113,15 @@ var coordinateCheck = function(val) {
 DiarySchema.path('loc').validate(coordinateCheck, 'No valid coordinates.');
 
 /*
- * Text indexing
+ * Indexing
  */
+DiarySchema.index({
+	loc: '2d'
+});
+DiarySchema.index({
+	loc: '2dsphere'
+});
+
 var textSearch = require('mongoose-text-search');
 DiarySchema.plugin(textSearch);
 
