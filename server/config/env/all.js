@@ -5,8 +5,8 @@ var rootPath = path.normalize(__dirname + '/../../..');
 
 module.exports = {
 	root: rootPath,
-	port: process.env.PORT || 3000,
-	hostname: process.env.HOST || process.env.HOSTNAME,
+	port: process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || 3000,
+	hostname: process.env.OPENSHIFT_NODEJS_IP || process.env.HOST || process.env.HOSTNAME,
 	db: process.env.MONGOHQ_URL,
 	templateEngine: 'swig',
 
