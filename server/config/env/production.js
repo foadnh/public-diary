@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-    db: 'mongodb://localhost/public-diary-prod',
+    db: process.env.OPENSHIFT_MONGODB_DB_URL || 'mongodb://localhost/public-diary',
     app: {
         name: 'MEAN - A Modern Stack - Production'
     },
