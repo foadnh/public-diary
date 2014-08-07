@@ -4,7 +4,8 @@
  * Module dependencies
  */
 var mongoose = require('mongoose'),
-	Diary = mongoose.model('Diary');
+	Diary = mongoose.model('Diary'),
+	Notif = mongoose.model('Notification');
 mongoose.set('debug', true);
 
 /*
@@ -527,8 +528,14 @@ exports.like = function(req, res) {
 								err: err
 							});
 							return res.status(400).send('Some error occurred.');
-						} else
+						} else {
+							Notif.create({
+								type: 'like',
+								refer: diary._id,
+								user: diary.user
+							});
 							return res.status(200).send('Diary liked.');
+						}
 					});
 
 				} else
@@ -599,8 +606,14 @@ exports.toggleLike = function(req, res) {
 								err: err
 							});
 							return res.status(400).send('Some error occurred.');
-						} else
+						} else {
+							Notif.create({
+								type: 'like',
+								refer: diary._id,
+								user: diary.user
+							});
 							return res.status(200).send('Diary liked.');
+						}
 					});
 				} else {
 					diary.votes.splice(voteIndex, 1);
