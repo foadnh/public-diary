@@ -83,7 +83,7 @@ exports.create = function(req, res) {
 				err: err
 			});
 			switch (err.code) {
-				default: return res.status(400).send('Please enter diary text.');
+				default: return res.status(400).send('Validation error.');
 			}
 
 			return res.status(400).send('Error');
@@ -458,10 +458,10 @@ exports.edit = function(req, res) {
 
 				diary.save(function(err, result) {
 					if (err) {
-						log.warning('edit: Saving diary failed.', {
+						log.warn('edit: Saving diary failed.', {
 							err: err
 						});
-						return res.status(400).send('Please enter diary text.');
+						return res.status(400).send('Validation error.');
 					} else {
 						return res.json(result);
 					}
@@ -762,7 +762,7 @@ exports.adminEdit = function(req, res) {
 						log.error('adminEdit: Saving diary failed.', {
 							err: err
 						});
-						return res.status(400).send('Please enter diary text.');
+						return res.status(400).send('Validation error.');
 					} else {
 						return res.json(result);
 					}
