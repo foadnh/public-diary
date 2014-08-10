@@ -50,3 +50,32 @@ exports.get = function(req, res) {
 	else
 		return res.status(400).send('User is not logged in.');
 };
+
+/*
+ * Get number of unread notifications
+ */
+exports.getUnreadCount = function(req, res) {
+	if (req.user)
+		Notif
+			.find({
+				user: req.user._id
+			})
+			.limit(100)
+			.select('read')
+			.exec(function(err, notifications) {
+				if (err) {
+					log.error('getUnreadCount: Executing failed.', {
+						err: err
+					});
+					return res.status(400).send('Something went wrong in getting number of unread notifications.');
+				} else {
+					var count = 0;
+					for (var i = notifications.length - 1; i >= 0; i--)
+						if (!notifications.read)
+							count++;
+					return res.json(count);
+				}
+			});
+	else
+		return res.status(400).send('User is not logged in.');
+};

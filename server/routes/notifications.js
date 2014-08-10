@@ -8,4 +8,7 @@ module.exports = function(app, passport) {
 	app.route('/notifications')
 		.get(notifications.get); // Get notifications
 
+	app.route('/notifications/unread-count')
+		.get(notifications.getUnreadCount); // Get number of unread notifications
+
 };
