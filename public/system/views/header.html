@@ -27,6 +27,20 @@
 		</ul>
 	</div>
 
+	<div class="notification account navbar-nav nav">
+		<span class="dropdown" on-toggle="getNotifications()">
+			<a href class="dropdown-toggle">
+				{{ notificationsUnreadCount }}
+			</a>
+			<ul class="dropdown-menu">
+				<li> {{test}}</li>
+				<li data-ng-repeat="notification in notifications">
+					{{ notification.type }}
+				</li>
+			</ul>
+		</span>
+	</div>
+
 	<div class="account">
 		<div class="text-edit">
 			<div class="pull-right" data-ng-show="global.authenticated" mean-token-editable></div>

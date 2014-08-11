@@ -529,11 +529,12 @@ exports.like = function(req, res) {
 							});
 							return res.status(400).send('Some error occurred.');
 						} else {
-							Notif.create({
-								type: 'like',
+							var notif = new Notif({
+								type: 'vote',
 								refer: diary._id,
 								user: diary.user
 							});
+							notif.save();
 							return res.status(200).send('Diary liked.');
 						}
 					});
@@ -607,11 +608,12 @@ exports.toggleLike = function(req, res) {
 							});
 							return res.status(400).send('Some error occurred.');
 						} else {
-							Notif.create({
-								type: 'like',
+							var notif = new Notif({
+								type: 'vote',
 								refer: diary._id,
 								user: diary.user
 							});
+							notif.save();
 							return res.status(200).send('Diary liked.');
 						}
 					});
