@@ -33,9 +33,8 @@
 				{{ notificationsUnreadCount }}
 			</a>
 			<ul class="dropdown-menu">
-				<li> {{test}}</li>
 				<li data-ng-repeat="notification in notifications">
-					{{ notification.type }}
+					<a data-ng-click="goToNotification($index)">{{ notification }}</a>
 				</li>
 			</ul>
 		</span>

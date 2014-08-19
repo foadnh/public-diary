@@ -11,4 +11,7 @@ module.exports = function(app, passport) {
 	app.route('/notifications/unread-count')
 		.get(notifications.getUnreadCount); // Get number of unread notifications
 
+	app.route('/notifications/read/:notificationId')
+		.post(notifications.read); // Mark notification as readed by ID
+
 };

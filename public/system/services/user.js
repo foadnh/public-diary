@@ -4,6 +4,15 @@
 angular.module('mean.system').factory('User', ['$http',
 	function($http) {
 		return {
+			getInfo: function(user, callback) {
+				return $http
+					.get('/user/info/' + user)
+					.success(callback)
+					.error(function(err) {
+						console.log(err);
+					});
+			},
+
 			follow: function(user, callback) {
 				return $http
 					.post('/user/follow', {

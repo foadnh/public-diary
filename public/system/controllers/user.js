@@ -12,6 +12,10 @@ angular.module('mean.system').controller(
 			if (Global.user && Global.user._id === $scope.user)
 				$scope.yourself = true;
 
+			User.getInfo($scope.user, function(info) {
+				$scope.info = info;
+			});
+
 			$scope.followed = Global.user.follows.indexOf($scope.user) === -1 ? false : true;
 			$scope.follow = function() {
 				User.follow($scope.user, function(result) {

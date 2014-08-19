@@ -26,9 +26,13 @@ angular.module('mean.system').controller('HeaderCtrl', ['$scope', '$rootScope', 
 			});
 
 		$scope.getNotifications = function() {
-			Notifications.get(function (notifications) {
+			Notifications.get(function(notifications) {
 				$scope.notifications = notifications;
 			});
+		};
+
+		$scope.goToNotification = function(index) {
+			Notifications.read($scope.notifications[index]._id, function() {});
 		};
 
 		$scope.search = function() {

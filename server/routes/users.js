@@ -95,6 +95,9 @@ module.exports = function(app, passport) {
 			failureRedirect: '#!/login'
 		}), users.authCallback);
 
+	app.route('/user/info/:userId')
+		.get(users.getInfo); //	Get user's information by ID
+
 	app.route('/user/follow')
 		.post(users.follow); //	Follow user
 

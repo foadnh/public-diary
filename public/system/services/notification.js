@@ -20,6 +20,15 @@ angular.module('mean.system').factory('Notifications', ['$http', // Notification
 					.error(function(err) {
 						console.log(err);
 					});
+			},
+
+			read: function(notificationId, callback) {
+				return $http
+					.post('/notifications/read/' + notificationId)
+					.success(callback)
+					.error(function(err) {
+						console.log(err);
+					});
 			}
 		};
 	}

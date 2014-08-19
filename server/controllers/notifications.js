@@ -31,8 +31,9 @@ var log = new(winston.Logger)({
  * Get notifications
  */
 exports.get = function(req, res) {
-	if (req.user)
-		Notif
+	if (!req.user)
+		return res.status(400).send('User is not logged in.');
+	Notif
 		.find({
 			user: req.user._id
 		})
@@ -46,20 +47,18 @@ exports.get = function(req, res) {
 					err: err
 				});
 				return res.status(400).send('Something went wrong in getting notifications.');
-			} else {
-				return res.json(notifications);
 			}
+			return res.json(notifications);
 		});
-	else
-		return res.status(400).send('User is not logged in.');
 };
 
 /*
  * Get number of unread notifications
  */
 exports.getUnreadCount = function(req, res) {
-	if (req.user)
-		Notif
+	if (!req.user)
+		return res.status(400).send('User is not logged in.');
+	Notif
 		.find({
 			user: req.user._id
 		})
@@ -74,14 +73,47 @@ exports.getUnreadCount = function(req, res) {
 					err: err
 				});
 				return res.status(400).send('Something went wrong in getting number of unread notifications.');
-			} else {
-				var count = 0;
-				for (var i = notifications.length - 1; i >= 0; i--)
-					if (!notifications.read)
-						count++;
-				return res.json(count);
 			}
+			var count = 0;
+			for (var i = notifications.length - 1; i >= 0; i--)
+				if (!notifications[i].read)
+					count++;
+			return res.json(count);
 		});
-	else
+};
+
+/*
+ * Mark notification as readed by ID
+ */
+exports.read = function(req, res) {
+	if (!req.user)
 		return res.status(400).send('User is not logged in.');
+	Notif
+		.findById(req.params.notificationId)
+		.where({
+			user: req.user._id
+		})
+		.sort({
+			$natural: -1
+		})
+		.limit(100)
+		.select('read')
+		.exec(function(err, notification) {
+			if (err) {
+				log.error('read: Executing failed.', {
+					err: err
+				});
+				return res.status(400).send('Something went wrong in getting notification.');
+			}
+			notification.read = true;
+			notification.save(function(err) {
+				if (err) {
+					log.error('read: Saving notification failed.', {
+						err: err
+					});
+					return res.status(400).send('Saving notification failed.');
+				}
+				return res.send('Notification marked as readed.');
+			});
+		});
 };

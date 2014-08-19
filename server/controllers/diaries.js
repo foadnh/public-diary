@@ -346,7 +346,7 @@ exports.getUser = function(req, res) {
 		var query = {
 			user: user
 		};
-		if (!(req.user && user === req.user._id))
+		if (!(req.user && user === String(req.user._id)))
 			query.showUser = true;
 		Diary
 			.find(query)

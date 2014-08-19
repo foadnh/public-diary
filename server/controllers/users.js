@@ -122,12 +122,33 @@ exports.user = function(req, res, next, id) {
 };
 
 /*
+ * Get user's information by ID
+ */
+exports.getInfo = function(req, res) {
+	var select = 'name username';
+	if (req.user && String(req.user._id) === req.params.userId)
+		select += ' email follows followsFull';
+	User
+		.findById(req.params.userId)
+		.select(select)
+		.exec(function(err, user) {
+			if (err) {
+				log.error('getInfo: Executing failed.', {
+					err: err
+				});
+				return res.status(400).send('Something went wrong in getting user.');
+			}
+			return res.json(user);
+		});
+};
+
+/*
  * Follow user
  */
 exports.follow = function(req, res) {
 	if (!req.user)
 		return res.status(400).send('You must be logged in user.');
-	if(req.user._id === req.body.getId)
+	if (String(req.user._id) === req.body.id)
 		return res.status(400).send('You Can\'t follow yourself.');
 	User
 		.findById(req.user._id)
