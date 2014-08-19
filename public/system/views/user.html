@@ -1,24 +1,32 @@
 <section data-ng-controller="UserCtrl">
-	<select data-ng-model="sortVal" data-ng-change="sort()">
-		<optgroup label="Created date">
-			<option value='{"sort":"createdDate","order":-1}'>Descending</option>
-			<option value='{"sort":"createdDate","order":1}'>Ascending</option>
-		</optgroup>
-		<optgroup label="Vote">
-			<option value='{"sort":"vote","order":-1}'>Descending</option>
-			<option value='{"sort":"vote","order":1}'>Ascending</option>
-		</optgroup>
-	</select>
-	<table>
-		<tr data-ng-repeat="diary in diaries">
-			<td>
-				<button data-ng-click="viewDiary($index)">View</button>
-			</td>
-			<td>{{diary.vote}}</td>
-			<td>{{diary.title}}</td>
-			<td data-ng-bind-html="diary.text"></td>
-		</tr>
-	</table>
-	<pagination total-items="meta.wholeSize" items-per-page="meta.pageSize" data-ng-model="meta.page"
-	max-size="10"></pagination>
+	<div>
+		<div data-ng-if="userAccess && !yourself">
+			<button data-ng-click="follow()" data-ng-hide="followed">Follow</button>
+			<button data-ng-click="unfollow()" data-ng-show="followed">Unfollow</button>
+		</div>
+	</div>
+	<div>
+		<select data-ng-model="sortVal" data-ng-change="sort()">
+			<optgroup label="Created date">
+				<option value='{"sort":"createdDate","order":-1}'>Descending</option>
+				<option value='{"sort":"createdDate","order":1}'>Ascending</option>
+			</optgroup>
+			<optgroup label="Vote">
+				<option value='{"sort":"vote","order":-1}'>Descending</option>
+				<option value='{"sort":"vote","order":1}'>Ascending</option>
+			</optgroup>
+		</select>
+		<table>
+			<tr data-ng-repeat="diary in diaries">
+				<td>
+					<button data-ng-click="viewDiary($index)">View</button>
+				</td>
+				<td>{{diary.vote}}</td>
+				<td>{{diary.title}}</td>
+				<td data-ng-bind-html="diary.text"></td>
+			</tr>
+		</table>
+		<pagination total-items="meta.wholeSize" items-per-page="meta.pageSize" data-ng-model="meta.page"
+		max-size="10"></pagination>
+	</div>
 </section>

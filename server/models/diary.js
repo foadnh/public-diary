@@ -63,7 +63,7 @@ var DiarySchema = new Schema({
 		type: String,
 	},
 	user: {
-		type: mongoose.Schema.Types.ObjectId,
+		type: Schema.Types.ObjectId,
 		ref: User,
 		required: true,
 		index: true
@@ -78,7 +78,7 @@ var DiarySchema = new Schema({
 		default: 0
 	},
 	votes: {
-		type: [mongoose.Schema.Types.ObjectId]
+		type: [Schema.Types.ObjectId]
 	}
 });
 

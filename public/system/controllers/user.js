@@ -1,12 +1,30 @@
 'use strict';
 
 angular.module('mean.system').controller(
-	'UserCtrl', ['$scope', 'Global', 'Diary', '$http', '$modal', '$stateParams', '$location',
-		function($scope, Global, Diary, $http, $modal, $stateParams, $location) {
+	'UserCtrl', ['$scope', 'Global', 'Diary', 'User', '$modal', '$stateParams', '$location',
+		function($scope, Global, Diary, User, $modal, $stateParams, $location) {
 
 			$scope.userAccess = Global.authenticated ? true : false;
 
 			$scope.user = $stateParams.user;
+
+			$scope.yourself = false;
+			if (Global.user && Global.user._id === $scope.user)
+				$scope.yourself = true;
+
+			$scope.followed = Global.user.follows.indexOf($scope.user) === -1 ? false : true;
+			$scope.follow = function() {
+				User.follow($scope.user, function(result) {
+					Global.user.follows.push($scope.user);
+					$scope.followed = true;
+				});
+			};
+			$scope.unfollow = function() {
+				User.unfollow($scope.user, function(result) {
+					Global.user.follows.splice(Global.user.follows.indexOf($scope.user), 1);
+					$scope.followed = false;
+				});
+			};
 
 			$scope.meta = {
 				pageSize: 20,

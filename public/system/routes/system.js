@@ -31,6 +31,10 @@ angular.module('mean.system').config(['$stateProvider', '$urlRouterProvider',
 				url: '/user/:user',
 				templateUrl: 'public/system/views/user.html'
 			})
+			.state('stream', {
+				url: '/stream',
+				templateUrl: 'public/system/views/stream.html'
+			})
 			.state('search', {
 				url: '/search/:key',
 				templateUrl: 'public/system/views/search.html'

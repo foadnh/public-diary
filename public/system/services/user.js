@@ -1,21 +1,25 @@
 'use strict';
 
 //Global service for global variables
-angular.module('mean.system').factory('Notifications', ['$http', // Notifications instead of Notification because of javascripts Notification
+angular.module('mean.system').factory('User', ['$http',
 	function($http) {
 		return {
-			get: function(callback) {
+			follow: function(user, callback) {
 				return $http
-					.get('/notifications')
+					.post('/user/follow', {
+						id: user
+					})
 					.success(callback)
 					.error(function(err) {
 						console.log(err);
 					});
 			},
 
-			unreadCount: function(callback) {
+			unfollow: function(user, callback) {
 				return $http
-					.get('/notifications/unread-count')
+					.post('/user/unfollow', {
+						id: user
+					})
 					.success(callback)
 					.error(function(err) {
 						console.log(err);

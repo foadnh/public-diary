@@ -20,15 +20,15 @@ var NotificationSchema = new Schema({
 		default: false
 	},
 	refer: {
-		type: mongoose.Schema.Types.ObjectId
+		type: Schema.Types.ObjectId
 	},
 	type: {
 		type: String,
 		required: true,
-		enum: ['vote']
+		enum: ['vote', 'follow']
 	},
 	user: {
-		type: mongoose.Schema.Types.ObjectId,
+		type: Schema.Types.ObjectId,
 		required: true,
 		index: true
 	}

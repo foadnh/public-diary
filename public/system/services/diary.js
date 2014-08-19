@@ -3,7 +3,7 @@
 //Global service for global variables
 angular.module('mean.system').factory('Diary', ['$resource', '$http',
 	function($resource, $http) {
-		var Diary = $resource('/diary/:diaryId', {
+		var Diary = $resource('/diary/id/:diaryId', {
 			diaryId: '@diaryId'
 		});
 		return {
@@ -65,6 +65,16 @@ angular.module('mean.system').factory('Diary', ['$resource', '$http',
 					.get(
 						'/diary/user/' + user +
 						'?skip=' + skip + '&size=' + pageSize + '&sort=' + sort.sort + '&order=' + sort.order)
+					.success(callback)
+					.error(function(err) {
+						console.log(err);
+					});
+			},
+
+			getStream: function(pageSize, page, callback) {
+				var skip = (page - 1) * pageSize;
+				return $http
+					.get('/diary/stream?skip=' + skip + '&size=' + pageSize)
 					.success(callback)
 					.error(function(err) {
 						console.log(err);

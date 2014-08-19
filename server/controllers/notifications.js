@@ -33,20 +33,23 @@ var log = new(winston.Logger)({
 exports.get = function(req, res) {
 	if (req.user)
 		Notif
-			.find({
-				user: req.user._id
-			})
-			.limit(100)
-			.exec(function(err, notifications) {
-				if (err) {
-					log.error('get: Executing failed.', {
-						err: err
-					});
-					return res.status(400).send('Something went wrong in getting notifications.');
-				} else {
-					return res.json(notifications);
-				}
-			});
+		.find({
+			user: req.user._id
+		})
+		.sort({
+			$natural: -1
+		})
+		.limit(100)
+		.exec(function(err, notifications) {
+			if (err) {
+				log.error('get: Executing failed.', {
+					err: err
+				});
+				return res.status(400).send('Something went wrong in getting notifications.');
+			} else {
+				return res.json(notifications);
+			}
+		});
 	else
 		return res.status(400).send('User is not logged in.');
 };
@@ -57,25 +60,28 @@ exports.get = function(req, res) {
 exports.getUnreadCount = function(req, res) {
 	if (req.user)
 		Notif
-			.find({
-				user: req.user._id
-			})
-			.limit(100)
-			.select('read')
-			.exec(function(err, notifications) {
-				if (err) {
-					log.error('getUnreadCount: Executing failed.', {
-						err: err
-					});
-					return res.status(400).send('Something went wrong in getting number of unread notifications.');
-				} else {
-					var count = 0;
-					for (var i = notifications.length - 1; i >= 0; i--)
-						if (!notifications.read)
-							count++;
-					return res.json(count);
-				}
-			});
+		.find({
+			user: req.user._id
+		})
+		.sort({
+			$natural: -1
+		})
+		.limit(100)
+		.select('read')
+		.exec(function(err, notifications) {
+			if (err) {
+				log.error('getUnreadCount: Executing failed.', {
+					err: err
+				});
+				return res.status(400).send('Something went wrong in getting number of unread notifications.');
+			} else {
+				var count = 0;
+				for (var i = notifications.length - 1; i >= 0; i--)
+					if (!notifications.read)
+						count++;
+				return res.json(count);
+			}
+		});
 	else
 		return res.status(400).send('User is not logged in.');
 };

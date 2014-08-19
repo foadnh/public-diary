@@ -8,7 +8,7 @@ module.exports = function(app, passport) {
 	app.route('/diary')
 		.post(diaries.create); // Create new diary
 
-	app.route('/diary/:diaryId')
+	app.route('/diary/id/:diaryId')
 		.get(diaries.getId); // Get diary by ID
 
 	app.route('/diary/near/:lat/:lng/:dist')
@@ -22,6 +22,9 @@ module.exports = function(app, passport) {
 
 	app.route('/diary/user/:user')
 		.get(diaries.getUser); // Get diaries by user
+
+	app.route('/diary/stream')
+		.get(diaries.getStream); // Get stream of followed users diaries
 
 	app.route('/diary/search/:key')
 		.get(diaries.search); // Search diaries by text

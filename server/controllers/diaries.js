@@ -383,6 +383,57 @@ exports.getUser = function(req, res) {
 };
 
 /*
+ * Get stream of dollowed users diaries
+ */
+exports.getStream = function(req, res) {
+	if (!req.user)
+		return res.status(400).send('You must be logged in user.');
+
+	var skip = req.query.skip || 0;
+	var size = req.query.size || defaultQuerySize;
+	if (size > maxQuerySize)
+		size = maxQuerySize;
+	var sortObj = {
+		createdDate: -1
+	};
+	var query = {
+		user: {
+			$in: req.user.follows
+		},
+		showUser: true
+	};
+
+	Diary
+		.find(query)
+		.sort(sortObj)
+		.skip(skip)
+		.limit(size)
+		.exec(function(err, diaries) {
+			if (err) {
+				log.error('getStream: Executing failed.', {
+					err: err
+				});
+				return res.status(400).send('Something went wrong in getting diaries.');
+			} else {
+				Diary.find().limit(countLimit).count(query, function(err, count) {
+					if (err) {
+						log.error('getStream: Counting diaries failed.', {
+							err: err
+						});
+						return res.status(400).sent('Counting diaries failed.');
+					}
+					var result = {
+						diaries: diaries,
+						querySize: Number(size),
+						wholeSize: count,
+						skip: Number(skip)
+					};
+					return res.json(result);
+				});
+			}
+		});
+};
+/*
  * Search diaries by text
  */
 exports.search = function(req, res) {

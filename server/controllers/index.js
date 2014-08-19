@@ -22,10 +22,12 @@ exports.render = function(req, res) {
     // Send some basic starting info to the view
     res.render('index', {
         user: req.user ? {
-            name: req.user.name,
             _id: req.user._id,
-            username: req.user.username,
-            roles: req.user.roles
+			follows: req.user.follows,
+			followsFull: req.user.followsFull,
+            name: req.user.name,
+            roles: req.user.roles,
+            username: req.user.username
         } : {},
         modules: modules,
         isAdmin: isAdmin,
