@@ -1,0 +1,4 @@
+<li data-ng-repeat="notification in notifications">
+	<a data-ng-href="{{notification.link}}" data-ng-class="{unread: !notification.read}"
+	data-ng-click="markAsRead(notification.read,notification.key,$index)">{{notification.text}}</a>
+</li>

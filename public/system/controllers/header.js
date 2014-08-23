@@ -31,10 +31,6 @@ angular.module('mean.system').controller('HeaderCtrl', ['$scope', '$rootScope', 
 			});
 		};
 
-		$scope.goToNotification = function(index) {
-			Notifications.read($scope.notifications[index]._id, function() {});
-		};
-
 		$scope.search = function() {
 			$location.path('/search/' + $scope.searchText);
 		};

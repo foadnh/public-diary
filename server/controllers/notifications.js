@@ -88,8 +88,13 @@ exports.getUnreadCount = function(req, res) {
 exports.read = function(req, res) {
 	if (!req.user)
 		return res.status(400).send('User is not logged in.');
+	if (!req.body.type || !req.body.refer)
+		return res.status(400).send('You have to pass "type" and "refer" parameters.');
 	Notif
-		.findById(req.params.notificationId)
+		.find({
+			type: req.body.type,
+			refer: req.body.refer
+		})
 		.where({
 			user: req.user._id
 		})
@@ -98,22 +103,23 @@ exports.read = function(req, res) {
 		})
 		.limit(100)
 		.select('read')
-		.exec(function(err, notification) {
+		.exec(function(err, notifications) {
 			if (err) {
 				log.error('read: Executing failed.', {
 					err: err
 				});
-				return res.status(400).send('Something went wrong in getting notification.');
+				return res.status(400).send('Something went wrong in getting notifications.');
 			}
-			notification.read = true;
-			notification.save(function(err) {
-				if (err) {
-					log.error('read: Saving notification failed.', {
-						err: err
-					});
-					return res.status(400).send('Saving notification failed.');
-				}
-				return res.send('Notification marked as readed.');
-			});
+			for (var i = notifications.length - 1; i >= 0; i--) {
+				notifications[i].read = true;
+				notifications[i].save(function(err) {
+					if (err) {
+						log.error('read: Saving notifications failed.', {
+							err: err
+						});
+					}
+				});
+				return res.send('Notifications marked as readed.');
+			}
 		});
 };

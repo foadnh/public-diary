@@ -27,7 +27,7 @@
 				"public/system/lib/ng-tags-input/ng-tags-input.js",
 				"public/init.js",
 				"public/*/*.js",
-				"public/*/{controllers,filters,routes,services}/*.js"
+				"public/*/{controllers,directives,filters,routes,services}/*.js"
 			]
 		}
 	}

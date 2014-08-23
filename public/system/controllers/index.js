@@ -125,5 +125,7 @@ angular.module('mean.system').controller('IndexCtrl', ['$scope', 'Global', 'Diar
 			});
 		};
 
+		$scope.test = function() {alert()};
+
 	}
 ]);

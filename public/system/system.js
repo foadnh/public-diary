@@ -6,7 +6,7 @@ angular.module('mean.system', [
 	'ngResource',
 	'ngSanitize',
 	'angular-medium-editor',
-	'google-maps',
+//	'google-maps',
 	'ui.bootstrap',
 	'ngTagsInput',
 	'angularFileUpload'

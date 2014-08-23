@@ -22,9 +22,9 @@ angular.module('mean.system').factory('Notifications', ['$http', // Notification
 					});
 			},
 
-			read: function(notificationId, callback) {
+			read: function(params, callback) {
 				return $http
-					.post('/notifications/read/' + notificationId)
+					.post('/notifications/read/', params)
 					.success(callback)
 					.error(function(err) {
 						console.log(err);
