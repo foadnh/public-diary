@@ -14,6 +14,7 @@
     "angular-google-maps": "latest",
     "ng-tags-input": "~2.0.1",
     "ng-file-upload": "~1.5.0",
-    "angular-medium-editor": "*"
+    "angular-medium-editor": "*",
+    "socket.io-client": "~1.0.6"
   }
 }

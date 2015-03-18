@@ -126,6 +126,7 @@ angular.module('mean.system').controller('IndexCtrl', ['$scope', 'Global', 'Diar
 		};
 
 		$scope.test = function() {alert()};
+		var socket = io();
 
 	}
 ]);

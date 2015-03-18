@@ -1,0 +1,80 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'node', '/usr/bin/npm', 'install', 'mean-socket', '--save' ]
+2 info using npm@2.0.0-alpha-5
+3 info using node@v0.10.21
+4 warn package.json mean-connect-mongo@0.4.3 No repository field.
+5 warn package.json mean-socket@0.0.1 No repository field.
+6 warn package.json mean-upload@0.0.2 No repository field.
+7 verbose readDependencies using package.json deps
+8 verbose cache add [ 'mean-socket', null ]
+9 verbose cache add spec="mean-socket" args=["mean-socket",null]
+10 verbose parsed spec { raw: 'mean-socket',
+10 verbose parsed spec   scope: null,
+10 verbose parsed spec   name: 'mean-socket',
+10 verbose parsed spec   rawSpec: '',
+10 verbose parsed spec   spec: '*',
+10 verbose parsed spec   type: 'range' }
+11 verbose addNamed [ 'mean-socket', '*' ]
+12 verbose addNamed [ null, '*' ]
+13 silly lockFile 858ed077-mean-socket mean-socket@*
+14 verbose lock mean-socket@* /home/foad/.npm/858ed077-mean-socket.lock
+15 silly addNameRange { name: 'mean-socket', range: '*', hasData: false }
+16 verbose mapToRegistry name mean-socket
+17 verbose mapToRegistry uri https://registry.npmjs.org/mean-socket
+18 verbose request where is /mean-socket
+19 verbose request registry https://registry.npmjs.org/
+20 verbose request id 55d705d23a4c220d
+21 verbose request url raw /mean-socket
+22 verbose request url resolving [ 'https://registry.npmjs.org/', './mean-socket' ]
+23 verbose request url resolved https://registry.npmjs.org/mean-socket
+24 verbose request where is https://registry.npmjs.org/mean-socket
+25 verbose request no basic auth needed
+26 info trying registry request attempt 1 at 15:18:13
+27 http GET https://registry.npmjs.org/mean-socket
+28 http 404 https://registry.npmjs.org/mean-socket
+29 verbose headers { date: 'Sat, 23 Aug 2014 10:48:15 GMT',
+29 verbose headers   server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+29 verbose headers   'content-type': 'application/json',
+29 verbose headers   'cache-control': 'max-age=0',
+29 verbose headers   'content-length': '52',
+29 verbose headers   'accept-ranges': 'bytes',
+29 verbose headers   via: '1.1 varnish',
+29 verbose headers   age: '0',
+29 verbose headers   'x-served-by': 'cache-lax1433-LAX',
+29 verbose headers   'x-cache': 'MISS',
+29 verbose headers   'x-cache-hits': '0',
+29 verbose headers   'x-timer': 'S1408790895.253507,VS0,VE37',
+29 verbose headers   'keep-alive': 'timeout=10, max=50',
+29 verbose headers   connection: 'Keep-Alive' }
+30 silly registry.get cb [ 404,
+30 silly registry.get   { date: 'Sat, 23 Aug 2014 10:48:15 GMT',
+30 silly registry.get     server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+30 silly registry.get     'content-type': 'application/json',
+30 silly registry.get     'cache-control': 'max-age=0',
+30 silly registry.get     'content-length': '52',
+30 silly registry.get     'accept-ranges': 'bytes',
+30 silly registry.get     via: '1.1 varnish',
+30 silly registry.get     age: '0',
+30 silly registry.get     'x-served-by': 'cache-lax1433-LAX',
+30 silly registry.get     'x-cache': 'MISS',
+30 silly registry.get     'x-cache-hits': '0',
+30 silly registry.get     'x-timer': 'S1408790895.253507,VS0,VE37',
+30 silly registry.get     'keep-alive': 'timeout=10, max=50',
+30 silly registry.get     connection: 'Keep-Alive' } ]
+31 silly lockFile 858ed077-mean-socket mean-socket@*
+32 silly lockFile 858ed077-mean-socket mean-socket@*
+33 error 404 404 Not Found: mean-socket
+33 error 404
+33 error 404 'mean-socket' is not in the npm registry.
+33 error 404 You should bug the author to publish it
+33 error 404 It was specified as a dependency of 'mean'
+33 error 404
+33 error 404 Note that you can also install from a
+33 error 404 tarball, folder, or http url, or git url.
+34 error System Linux 3.12.20-gentoo
+35 error command "node" "/usr/bin/npm" "install" "mean-socket" "--save"
+36 error cwd /home/foad/Projects/public-diary
+37 error node -v v0.10.21
+38 error npm -v 2.0.0-alpha-5
+39 error code E404
+40 verbose exit [ 1, true ]

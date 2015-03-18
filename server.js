@@ -23,6 +23,8 @@ var app = require('./server/config/system/bootstrap')(passport, db);
 
 // Start the app by listening on <port>, optional hostname
 conn.once('open', function() {
+//	var io = require('socket.io')(app);
+	console.log(app);
     app.listen(config.port, config.hostname);
     console.log('MEAN app started on port ' + config.port + ' (' + process.env.NODE_ENV + ')');
 

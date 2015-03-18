@@ -25,6 +25,7 @@
 				"public/system/lib/lodash/dist/lodash.underscore.js",
 				"public/system/lib/angular-google-maps/dist/angular-google-maps.js",
 				"public/system/lib/ng-tags-input/ng-tags-input.js",
+				"public/system/lib/socket.io-client/socket.io.js",
 				"public/init.js",
 				"public/*/*.js",
 				"public/*/{controllers,directives,filters,routes,services}/*.js"
